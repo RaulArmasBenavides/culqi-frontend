@@ -6,14 +6,17 @@
         <button type="submit">Obtener Datos</button>
       </form>
   
-      <div v-if="cardData" class="card-data">
+      <div v-if="cardData && !this.showError" class="card-data">
         <div class="card-info">
           <p>Email: {{ cardData.email }}</p>
           <p>Número de tarjeta: {{ cardData.card_number }}</p>
           <p>Mes de expiración: {{ cardData.expiration_month }}</p>
-          <p>Fecha de expiración: {{ cardData.expiration_date }}</p>
+          <p>Fecha de expiración: {{ cardData.expiration_year }}</p>
         </div>
         <img src="../../../assets/card.png" alt="Imagen de tarjeta Visa débito" class="card-image">
+      </div>
+      <div v-if="this.showError">
+       <p>{{this.showError}}</p>
       </div>
     </div>
   </template>
@@ -31,6 +34,11 @@
     methods: {
       async fetchCardData() {
         this.cardData = await getCardInfoByToken(this.token);
+
+        if(this.cardData.error !=null){
+          this.showError = this.cardData.error;
+        }
+        // console.log(this.cardData);
       }
     }
   }
@@ -39,7 +47,7 @@
   <style scoped>
   .token-form-container {
     font-family: 'Arial', sans-serif;
-    width: 400px;
+    width: 800px;
     margin: auto;
   }
   
@@ -63,21 +71,27 @@
         background-color: #2980b9;
     }
   
-  .card-data {
+    .card-data {
     display: flex;
+    justify-content: space-between; 
     gap: 20px;
     margin-top: 20px;
     border: 1px solid #ccc;
     padding: 10px;
-  }
-  
-  .card-info {
+    align-items: center; /* Asegura que los elementos estén centrados verticalmente */
+}
+
+.card-info {
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
-  .card-image {
+    flex: 1;  /* Esto hace que card-info ocupe el espacio disponible, pero no más que eso */
+    max-width: calc(100% - 100px);  /* Esto reserva espacio para la imagen más el gap */
+}
+
+.card-image {
     width: 80px;
     height: auto;
-  }
+}
+  
   </style>
