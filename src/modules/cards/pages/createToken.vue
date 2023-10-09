@@ -14,11 +14,15 @@
                 <button type="submit">Pagar</button>
             </form>
         </div>
-        <div v-if="token" class="token-response">
-            <h3>Respuesta del Token</h3>
+        <div v-if="token && !this.showError" class="token-response">
+            <h3>Respuesta del API (Token)</h3>
             <textarea readonly v-model="token"></textarea>
 
         </div>
+
+        <div v-if="this.showError">
+       <p>{{this.showError}}</p>
+      </div>
     </div>
 </template>
 
@@ -40,7 +44,13 @@ export default {
     },
     methods: {
         async postData() {
-          this.token = await createToken(this.card)
+          this.token = await createToken(this.card);
+
+          if(this.token.error !=null){
+          this.showError = this.token.error;
+        }else{
+          this.showError =null;
+        }
         }
     }
 }
