@@ -37,8 +37,9 @@
 
         if(this.cardData.error !=null){
           this.showError = this.cardData.error;
+        }else{
+          this.showError =null;
         }
-        // console.log(this.cardData);
       }
     }
   }
@@ -94,4 +95,4 @@
     height: auto;
 }
   
-  </style>
+</style>
