@@ -1,28 +1,24 @@
-import { createWebHashHistory,createRouter } from 'vue-router'
-import createToken from '../modules/cards/pages/createToken'
-import cardInformation from '../modules/cards/pages/cardInformation'
-import NoPageFound from '../modules/shared/pages/NoPageFound'
-
+// src/router/index.ts
+import { createRouter, createWebHashHistory } from 'vue-router';
 const routes = [
     {
-        path :'/', 
+        path: '/',
         name: 'createToken',
-        component:createToken
+        component: () => import('../modules/cards/pages/createToken.vue'),
     },
     {
-        path :'/cardInformation', 
+        path: '/cardInformation',
         name: 'cardInformation',
-        component:cardInformation
+        component: () => import('../modules/cards/pages/cardInformation.vue'),
     },
     {
-        path:'/;pathMatch(.*)*', 
-        component:NoPageFound
-    }
-]
-
-const router = createRouter({
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: () => import('../modules/shared/pages/NoPageFound.vue'),
+    },
+];
+export default createRouter({
     history: createWebHashHistory(),
     routes,
-})
-
-export default router
+});
+//# sourceMappingURL=router.js.map

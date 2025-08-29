@@ -13,7 +13,7 @@
           <p>Mes de expiración: {{ cardData.expiration_month }}</p>
           <p>Fecha de expiración: {{ cardData.expiration_year }}</p>
         </div>
-        <img src="../../../assets/card.png" alt="Imagen de tarjeta Visa débito" class="card-image">
+        <!-- <img src="../../../assets/card.png" alt="Imagen de tarjeta Visa débito" class="card-image"> -->
       </div>
       <div v-if="this.showError">
        <p>{{this.showError}}</p>

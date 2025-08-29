@@ -1,0 +1,6 @@
+/* src/styles.css */
+@import "tailwindcss";
+
+/* dile a Tailwind dónde leer clases */
+@source "../public/index.html";
+@source "./**/*.{vue,js,ts,jsx,tsx}";

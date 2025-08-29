@@ -1,9 +1,11 @@
-import {baseURL} from '../../../api/lamba-functions'
+import { baseURL } from "@/api/lamba-functions";
+
+ 
 function getBearerToken() {
     return 'pk_test_LsRBKejzCOEEWOsw';  // Aquí debes reemplazarlo por la lógica que uses para obtener tu token.
 }
 
-export const createToken =async (card)=> {
+export const createToken =async (card:any)=> {
    
     console.log(card);
     const response = await fetch(`${baseURL}/createToken`, {
@@ -17,7 +19,7 @@ export const createToken =async (card)=> {
     return await response.json();
 }
 
-export const getCardInfoByToken = async (token) => {
+export const getCardInfoByToken = async (token:any) => {
     const response = await fetch(`${baseURL}/getCardByToken?token=${token}`, {
         method: 'GET',
         headers: { 
