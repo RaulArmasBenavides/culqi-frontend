@@ -1,5 +1,5 @@
-// src/router/index.ts
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import isAuthenticatedGuard from "@/modules/auth/guards/is-authenticated.guard";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -8,28 +8,24 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/modules/landing/layout/LandingLayout.vue"),
     children: [
       {
-        path: "/",
+        path: "",
         name: "home",
         component: () =>
-          import("../modules/landing/cards/pages/createToken.vue"),
+          import("@/modules/landing/cards/pages/createToken.vue"),
       },
       {
-        path: "/createToken",
-        name: "home",
-        component: () =>
-          import("../modules/landing/cards/pages/createToken.vue"),
-      },
-      {
-        path: "/createToken",
+        path: "createToken",
         name: "createToken",
         component: () =>
-          import("../modules/landing/cards/pages/createToken.vue"),
+          import("@/modules/landing/cards/pages/createToken.vue"),
+        beforeEnter: isAuthenticatedGuard,
       },
       {
-        path: "/cardInformation",
+        path: "cardInformation",
         name: "cardInformation",
         component: () =>
-          import("../modules/landing/cards/pages/cardInformation.vue"),
+          import("@/modules/landing/cards/pages/cardInformation.vue"),
+        beforeEnter: isAuthenticatedGuard,
       },
     ],
   },
@@ -37,7 +33,7 @@ const routes: RouteRecordRaw[] = [
   // Auth
   {
     path: "/auth",
-    redirect: { name: "login" }, //'/login',
+    redirect: { name: "login" },
     component: () => import("@/modules/auth/layouts/AuthLayout.vue"),
     children: [
       {
@@ -55,7 +51,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
-    component: () => import("../modules/shared/pages/NoPageFound.vue"),
+    component: () => import("@/modules/shared/pages/NoPageFound.vue"),
   },
 ];
 

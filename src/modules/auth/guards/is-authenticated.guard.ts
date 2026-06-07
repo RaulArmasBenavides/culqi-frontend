@@ -1,14 +1,15 @@
 import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
+import { useAuthStore } from "../stores/auth.store";
 
 const isAuthenticatedGuard = async (
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
   next: NavigationGuardNext
 ) => {
-  const userId = localStorage.getItem("userId");
+  const authStore = useAuthStore();
   localStorage.setItem("lastPath", to.path);
 
-  if (!userId) {
+  if (!authStore.isAuthenticated) {
     return next({
       name: "login",
     });

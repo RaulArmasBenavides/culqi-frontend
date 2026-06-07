@@ -2,7 +2,16 @@
   <router-view />
 </template>
 
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import { useAuthStore } from '@/modules/auth/stores/auth.store'
 
+const authStore = useAuthStore()
+
+onMounted(async () => {
+  await authStore.checkAuthStatus()
+})
+</script>
 
 <style>
 #app {
@@ -14,6 +23,6 @@
   margin-top: 60px;
 }
 .culqi-logo {
-    width: 25%;  /* Esto reducirá la imagen a la tercera parte de su ancho original */
+  width: 25%;
 }
 </style>
